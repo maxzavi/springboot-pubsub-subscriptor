@@ -2,7 +2,7 @@
 
 Create Spring Boot project with maven, without dependencies
 
-Implements **CommandLineRunner** and add **run** method
+Implements **CommandLineRunner** and add **run** method (override)
 
 ```java
 public class DemogooglepubsubsubscriptorApplication implements CommandLineRunner {
