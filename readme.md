@@ -11,13 +11,20 @@ public class DemogooglepubsubsubscriptorApplication implements CommandLineRunner
 	public void run(String... args) throws Exception {
 ```
 
-Add logging using **slf4j**
+Add logging using **slombok**
 
 ```java
+//Add Logger
+@Log4j2
 public class DemogooglepubsubsubscriptorApplication implements CommandLineRunner {
-    //Add Logger
-	private static Logger LOG = LoggerFactory.getLogger(DemogooglepubsubsubscriptorApplication.class);
 ```
+
+logging with:
+
+```java
+		log.info("Start");
+```
+
 
 ## Add Google PubSub dependecies
 
