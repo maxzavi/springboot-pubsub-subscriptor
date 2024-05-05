@@ -3,8 +3,6 @@ package pe.maxz.demogooglepubsubsubscriptor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,12 +14,14 @@ import com.google.cloud.pubsub.v1.Subscriber;
 import com.google.pubsub.v1.ProjectSubscriptionName;
 import com.google.pubsub.v1.PubsubMessage;
 
+import lombok.extern.log4j.Log4j2;
+
 @SpringBootApplication
+@Log4j2
 public class DemogooglepubsubsubscriptorApplication implements CommandLineRunner {
-	private static Logger LOG = LoggerFactory.getLogger(DemogooglepubsubsubscriptorApplication.class);
-	@Value("${gcp-project-id}")
+	@Value("${gcp.project-id}")
 	String projectId;
-	@Value("${gcp-pubsub-subscription-name}")
+	@Value("${gcp.subscription-name}")
 	String subscriptionId;
 
 	public static void main(String[] args) {
@@ -30,7 +30,7 @@ public class DemogooglepubsubsubscriptorApplication implements CommandLineRunner
 
 	@Override
 	public void run(String... args) throws Exception {
-		LOG.info("Start");
+		log.info("Start");
 
 		while (true) {
 			subscribeAsyncExample(projectId, subscriptionId);	
@@ -43,8 +43,8 @@ public class DemogooglepubsubsubscriptorApplication implements CommandLineRunner
 		// Instantiate an asynchronous message receiver.
 		MessageReceiver receiver = (PubsubMessage message, AckReplyConsumer consumer) -> {
 			// Handle incoming message, then ack the received message.
-			System.out.println("Id: " + message.getMessageId());
-			System.out.println("Data: " + message.getData().toStringUtf8());
+			log.info("Id: {}", message.getMessageId());
+			log.info("Data: {}", message.getData().toStringUtf8());
 			consumer.ack();
 		};
 
